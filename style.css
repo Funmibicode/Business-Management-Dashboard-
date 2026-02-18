@@ -13,8 +13,8 @@ body {
 :root{
     
     /* color */
-    --lightblue: rgba(46, 155, 222, 1);
-    --darkblue: rgba(6, 30, 114, 1);
+    --lightblue: #585858;
+    --darkblue: #EEEEEE;
     --brownishOrange: rgba(255, 209, 0, 1);
     --brown: rgba(217, 160, 30, 1);
     
@@ -63,12 +63,12 @@ nav a h2{
     padding: 3rem 1rem;
     position: relative;
     width: 95%;
-    height: 30rem;
+    height: 35rem;
     border-top-left-radius: 20px;
     border-bottom-right-radius: 25px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 8px;
-    box-shadow: rgba(112, 207, 250, 1) -3px -4px 5px inset, #70CFFA 3px 4px 5px inset;
+    box-shadow: #808080 -3px -4px 5px inset, #7D7D7D 3px 4px 5px inset;
     background-color: var(--lightblue);
 }
 
@@ -84,17 +84,20 @@ nav a h2{
 .taskContent {
     margin-top: 2rem;
     padding: 1.7rem 2rem;
-    box-shadow: #4CB2ED -5px -8px 10px inset, #79CEFF 6px 8px 12px inset;
+    box-shadow: #8A8888
+    -5px -8px 10px inset, #515151 6px 8px 12px inset;
     border-radius: 20px;
+    background: var(--darkblue);
 }
 
 .taskContent .inputRecords label{
     font-size: var(--s);
     margin-left: 5px;
+    color: #676767;
 }
 
 .taskContent .inputRecords select{
-    height: 3rem;
+    height: 3.5rem;
     width: 28rem;
     padding: 0.5rem 0.7rem;
     margin-top: 0.5rem;
@@ -102,8 +105,58 @@ nav a h2{
     outline: none;
 }
 
+.inputRecords button{
+    display: flex;
+    justify-self: center;
+    padding: 5pt 34pt;
+    margin-top: 0.7rem;
+    border-radius: 0.5rem;
+    font-size: var(--sm);
+    font-weight: bold;
+    color: #E0E0E0;
+    background: #525252;
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+
+.inputRecords .select-rec{
+    margin-block: 2rem;
+}
+
+.inputRecords .select-rec p{
+    font-size: var(--l);
+    font-weight: 900;
+    text-align: center;
+    color: #838181;
+}
+
+.select-rec button{
+    display: none;
+    justify-self: center;
+    padding: 5pt 34pt;
+    margin-top: 0.7rem;
+    border-radius: 0.5rem;
+    font-size: var(--sm);
+    font-weight: bold;
+    color: #E0E0E0;
+    background: #15AB21;
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
 
 
+.js-input{
+    height: 3rem;
+    width: 24rem;
+    border-radius: 0.7rem;
+    outline: none;
+    border: none;
+    padding: 0.8rem 1rem;
+    margin-block-end: 8px;
+    font-size: 16pt;
+}
 
 
 
@@ -128,8 +181,20 @@ nav a h2{
 
 @media (max-width: 380px)  {
     
+    .taskContainer{
+        
+        height: 40rem;
+    }
+    
     .taskContent .inputRecords select{
-        height: 2rem;
+        height: 3rem;
         width: 16rem;
+    }
+    
+    .js-input{
+        height: 2.5rem;
+        width: 16.5rem;
+        padding: 0.8rem 1rem;
+        font-size: 14pt;
     }
 }
