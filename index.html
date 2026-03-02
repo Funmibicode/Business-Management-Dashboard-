@@ -1,69 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Business Management</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Records</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <style></style>
 </head>
-
 <body>
-  
-  <header>
-    <div class="header">
-      <nav>
-        <a href="#home">
-          <img src="" alt="logo" />
-          <h2>Management Task</h2>
-        </a>
-      </nav>
-    </div>
-  </header>
-  
-  <!-- main section -->
-  <section class="taskSection">
-    <div class="taskContainer">
-      <div class="title">
-        <h3>Management Dashboard</h3>
-        <p>keep records of your business activities.</p>
-      </div>
-      <div class="taskContent">
-        <div class="inputRecords">
-          <label for="category">
-          Category*
-          </label><br/>
-          <select id="selectCategory">
-            <option value="">Select Category</option>
-            <option value="transport">Transport</option>
-            <option value="utilities">Utilities</option>
-            <option value="supplies">Supplies</option>
-            
-          </select>
-          <br />
-          
-          <button type="button" id="select-btn">
-            select 
-          </button>
-          <div class="select-rec">
-            <p>
-              Select <br /> Category 
-            </p>
-            <button type="submit" id="keep-btn">
-              Keep Record
-            </button>
-          </div>
+
+    <!-- ── Sidebar Navigation ───────────────────── -->
+    <aside class="sidebar">
+        <div class="logo">Biz<span>Records</span></div>
+
+        <button class="nav-item active" data-page="dashboard">
+            <span class="nav-icon">📊</span> Dashboard
+        </button>
+        <button class="nav-item" data-page="add-record">
+            <span class="nav-icon">➕</span> Add Record
+        </button>
+        <button class="nav-item" data-page="all-records">
+            <span class="nav-icon">📋</span> All Records
+        </button>
+    </aside>
+
+    <!-- ── Main Content ──────────────────────────── -->
+    <main class="main">
+
+        <!-- ══ DASHBOARD PAGE ══ -->
+        <div class="page active" id="page-dashboard">
+
+            <div class="page-header">
+                <div>
+                    <div class="page-title">Dashboard</div>
+                    <div class="page-date" id="todayDate"></div>
+                </div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="cards-grid">
+                <div class="card sale">
+                    <div class="card-label">Total Sales</div>
+                    <div class="card-amount" id="totalSales">₦0</div>
+                    <div class="card-count" id="salesCount">0 records</div>
+                </div>
+                <div class="card expense">
+                    <div class="card-label">Expenses</div>
+                    <div class="card-amount" id="totalExpenses">₦0</div>
+                    <div class="card-count" id="expensesCount">0 records</div>
+                </div>
+                <div class="card transport">
+                    <div class="card-label">Transport</div>
+                    <div class="card-amount" id="totalTransport">₦0</div>
+                    <div class="card-count" id="transportCount">0 records</div>
+                </div>
+                <div class="card utility">
+                    <div class="card-label">Utilities</div>
+                    <div class="card-amount" id="totalUtilities">₦0</div>
+                    <div class="card-count" id="utilitiesCount">0 records</div>
+                </div>
+                <div class="card profit">
+                    <div class="card-label">Net Profit / Loss</div>
+                    <div class="card-amount" id="netProfit">₦0</div>
+                    <div class="card-count" id="profitLabel">income - costs</div>
+                </div>
+            </div>
+
+            <!-- Recent Records -->
+            <div class="section-title">Recent Records</div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentRecordsBody">
+                        <!-- JS fills this -->
+                    </tbody>
+                </table>
+                <div class="empty-state" id="recentEmpty">
+                    <div class="empty-icon">📭</div>
+                    <p>No records yet. Add your first record!</p>
+                </div>
+            </div>
+
         </div>
-        <div class="recordDetails">
-          
+
+        <!-- ══ ADD RECORD PAGE ══ -->
+        <div class="page " id="page-add-record">
+
+            <div class="page-header">
+                <div>
+                    <div class="page-title" id="formTitle">Add Record</div>
+                    <div class="page-date">Fill in the details below</div>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <form id="recordForm">
+
+                    <div class="form-grid">
+
+                        <!-- Type -->
+                        <div class="form-group">
+                            <label for="recordType">Type</label>
+                            <select id="recordType">
+                                <option value="">-- Select type --</option>
+                                <option value="sale">Sale</option>
+                                <option value="expense">Expense</option>
+                                <option value="transport">Transport</option>
+                                <option value="utility">Utility</option>
+                            </select>
+                            <span class="error-msg" id="typeError"></span>
+                        </div>
+
+                        <!-- Amount -->
+                        <div class="form-group">
+                            <label for="recordAmount">Amount (₦)</label>
+                            <input type="number" id="recordAmount" placeholder="e.g. 25000" min="1">
+                            <span class="error-msg" id="amountError"></span>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group full">
+                            <label for="recordDescription">Description</label>
+                            <input type="text" id="recordDescription" placeholder="e.g. Sold 5 bags of rice">
+                            <span class="error-msg" id="descError"></span>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="form-group">
+                            <label for="recordDate">Date</label>
+                            <input type="date" id="recordDate">
+                            <span class="error-msg" id="dateError"></span>
+                        </div>
+
+                        <!-- Category (optional) -->
+                        <div class="form-group">
+                            <label for="recordCategory">Category <span style="color:var(--muted)">(optional)</span></label>
+                            <input type="text" id="recordCategory" placeholder="e.g. Food, Fuel, Rent">
+                        </div>
+
+                        <!-- Note (optional) -->
+                        <div class="form-group full">
+                            <label for="recordNote">Note <span style="color:var(--muted)">(optional)</span></label>
+                            <textarea id="recordNote" placeholder="Any extra details..."></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- Hidden field to track edit mode -->
+                    <input type="hidden" id="editingId" value="">
+
+                    <div>
+                        <button type="submit" class="btn-primary" id="submitBtn">Add Record</button>
+                        <button type="button" class="btn-secondary" id="cancelBtn" style="display:none;">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+
         </div>
-      </div>
+
+        <!-- ══ ALL RECORDS PAGE ══ -->
+        <div class="page" id="page-all-records">
+
+            <div class="page-header">
+                <div>
+                    <div class="page-title">All Records</div>
+                    <div class="page-date" id="recordsCount">0 records total</div>
+                </div>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <div class="search-wrap">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Search by description...">
+                </div>
+                <select class="filter-select" id="filterType">
+                    <option value="all">All Types</option>
+                    <option value="sale">Sales</option>
+                    <option value="expense">Expenses</option>
+                    <option value="transport">Transport</option>
+                    <option value="utility">Utilities</option>
+                </select>
+                <select class="filter-select" id="filterSort">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="highest">Highest Amount</option>
+                    <option value="lowest">Lowest Amount</option>
+                </select>
+            </div>
+
+            <!-- Records Table -->
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allRecordsBody">
+                        <!-- JS fills this -->
+                    </tbody>
+                </table>
+                <div class="empty-state" id="allEmpty">
+                    <div class="empty-icon">📭</div>
+                    <p>No records found.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ── Toast Notification ────────────────────── -->
+    <div class="toast" id="toast">
+        <span id="toastIcon"></span>
+        <span id="toastMsg"></span>
     </div>
-  </section>
-  
-  
+
+    <script src="script.js"></script>
 </body>
-<script src="main.js"></script>
 </html>
